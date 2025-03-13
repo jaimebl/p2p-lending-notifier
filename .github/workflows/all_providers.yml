@@ -1,0 +1,28 @@
+name: Run All Providers
+
+on:
+  workflow_dispatch:  # Allows manual execution
+  repository_dispatch:  # Allows external triggers
+
+jobs:
+  run-all-providers:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run All Providers
+        env:
+          GIST_ID: ${{ vars.GIST_ID }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GIST_ACCESS_TOKEN_SECRET: ${{ secrets.GIST_ACCESS_TOKEN_SECRET }}
+        run: python main.py
