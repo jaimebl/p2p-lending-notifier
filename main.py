@@ -3,6 +3,7 @@ import logging
 import pkgutil
 
 import providers
+from providers.capital_rise import CapitalRise
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
@@ -17,4 +18,5 @@ def run_all_providers():
             scraper_class().check_and_notify()
 
 if __name__ == "__main__":
-    run_all_providers()
+    CapitalRise().run()
+    # run_all_providers()
